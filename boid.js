@@ -40,7 +40,7 @@ class Boid{
 
     }
     avoidOthers(boids){
-        const seprationCoeff = 50;
+        const seprationCoeff = 20;
         let steering = createVector(0,0);
         let counter = 0;
         boids.forEach(boid => {
@@ -63,7 +63,7 @@ class Boid{
         return steering;
     }
     align(boids) {
-        let neighbordist = 50;
+        let neighbordist = 20;
         let sum = createVector(0, 0);
         let count = 0;
         boids.forEach(boid => {
@@ -95,7 +95,13 @@ class Boid{
         let avoidance = this.avoidOthers(boids);
         let average = this.moveToAverage(boids)
         let alignment = this.align(boids);
-        avoidance.mult(1);
+        avoidance.mult(2);
+        average.mult(1.5);
+        // console.log(alignment)
+        if(alignment){
+
+            alignment.mult(1);
+        }
         this.accelerate(alignment)
         this.accelerate(avoidance)
         this.accelerate(average)
